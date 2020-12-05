@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Powder and Chowder</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" rel="stylesheet"
+    type="text/css" />
+  <link href="style.css" rel="stylesheet" type="text/css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+  crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+</head>
+
+<body>
+  <header>
+    <h1>Powder and Chowder</h1>
+  </header>
+  <main>
+      <section class="landing-page">
+        <h2>Welcome to Powder and Chowder!</h2>
+          <p>Your one stop Application for planning your next Colorado Mountain Adventure!</p>
+          <p>This application takes in real time weather forecasts to help you plan your next ski or snowboarding adventure!</p>
+          <p>After selecting a resort, a user will then be given a list of restraunts in that resorts area to refuel for the adventure!</p>
+          <p>This application was developed to interact with local resorts here in Colorado.</p>
+          <button class='showMap-btn'>Click here to get started!</button>
+      </section>
+      <section class="resort-map">
+        <div id="mapid"></div>
+      </section>
+      <section class="results-page">
+
+      </section>
+  </main>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.js" crossorigin="anonymous"></script>
+  <script src="scripts.js"></script>
+</body>
+
+</html>
