@@ -1,0 +1,10 @@
+body {
+    background-image: url("./images/ski.png");
+    background-position: center top;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+}
+
+#mapid {
+     height: 180px; 
+}
