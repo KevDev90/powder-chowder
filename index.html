@@ -26,15 +26,16 @@
         <h2>Welcome to Powder and Chowder!</h2>
           <p>Your one stop Application for planning your next Colorado Mountain Adventure!</p>
           <p>This application takes in real time weather forecasts to help you plan your next ski or snowboarding adventure!</p>
-          <p>After selecting a resort, a user will then be given a list of restraunts in that resorts area to refuel for the adventure!</p>
+          <p>After selecting a resort, a user will then be given a list of restauraunts in that resorts area to refuel for the adventure!</p>
           <p>This application was developed to interact with local resorts here in Colorado.</p>
-          <button class='showMap-btn'>Click here to get started!</button>
+          <button id='showMap-btn'>Click here to get started!</button>
       </section>
-      <section class="resort-map">
+      <section class="resort-map hidden">
         <div id="mapid"></div>
+        <button id='showResults-btn'>Show results!</button>
       </section>
-      <section class="results-page">
-
+      <section class="results-page hidden">
+        <button id='showMap-btn'>Go back to resort map!</button>
       </section>
   </main>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.js" crossorigin="anonymous"></script>
