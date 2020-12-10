@@ -5,6 +5,13 @@
     background-repeat: no-repeat;
     text-indent: 40px;
     padding-top: 3%;
+    height: 100vh;
+    width: 100vw;
+}
+
+.resorts-img {
+    height: 90vh;
+    width: 45vw;
 }
 
 h2 {
@@ -17,11 +24,6 @@ h2 {
     margin-right: auto 
 }
 
-section {
-    height: 100vh;
-    width: 100vw;
-}
-
 header {
     text-align: center;
     background: linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
@@ -29,16 +31,17 @@ header {
                 display: flex;
                 justify-content: center;
                 margin-bottom: -20px;
+                display:none;
 }
 
 #mapid {
-     height: 90vh; 
+     height: 100vh; 
      width: 100vw;
 }
 
 #showResults-btn {
     position: absolute;
-    top: 98%;
+    top: 90%;
     left: 50%;
 }
 
