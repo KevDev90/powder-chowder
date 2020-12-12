@@ -18,6 +18,10 @@ h2 {
     text-align: center;  
 }
 
+ul {
+    list-style-type: none;
+}
+
 .showMap-btn {
     display: block;
     margin-left: auto;
@@ -35,15 +39,37 @@ header {
 }
 
 #mapid {
-     height: 100vh; 
-     width: 100vw;
+    justify-content: flex-start;
+     height: 75vh; 
+     width: 45vw;
 }
+
 
 #showResults-btn {
     position: absolute;
     top: 90%;
     left: 50%;
 }
+
+.resort-map {
+    display: flex;
+}
+
+.resort-img {
+    /* background-image: url("./images/resorts-map.png");
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    background-size: cover;
+    height:700px;
+    width: 700px; */
+    
+}
+
+.weather-data {
+    justify-content: flex-end;
+}
+
+
 
 .hidden {
     display:none;

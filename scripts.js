@@ -1,4 +1,20 @@
 // code to render leaflet.js map
+var mymap = L.map('mapid').setView([39.5501, -105.7821], 9);
+L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1,
+    accessToken: 'pk.eyJ1Ijoia2ozc3RhY2tzIiwiYSI6ImNraTgxZGM5cTAxYzYyc29hNmJwdHg1cHMifQ.GtyrfOTWYSdrz6TP-tZVQA'
+}).addTo(mymap);
+  L.marker([39.4817, -106.0384]).addTo(mymap).bindPopup("<b>Breckenridge</b>")
+  L.marker([39.6403, -106.3742]).addTo(mymap).bindPopup("<b>Vail</b>")
+  L.marker([39.2084, -106.9491]).addTo(mymap).bindPopup("<b>Aspen Snowmass</b>")
+  L.marker([37.9375, -107.8123]).addTo(mymap).bindPopup("<b>Telluride</b>")
+  L.marker([40.4850, -106.8317]).addTo(mymap).bindPopup("<b>Steamboat Springs</b>")
+  L.marker([39.5792, -105.9347]).addTo(mymap).bindPopup("<b>Keystone</b>")
+
 // const mymap = L.map('mapid').setView([39.5501, -105.7821], 8);
 // const attribution ='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 //   const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
@@ -14,7 +30,7 @@
 const weatherbitKey = '7b9c18c9fd2f453094f58a867fafa27c';
 
 const weatherData = {
-    resorts: []
+    resorts: {}
 }
 
 let breckData = getData('Breckenridge');
@@ -41,31 +57,23 @@ function getData(city) {
 Promise.all([ keystoneData, steamboatData, tellurideData, aspenData, vailData, breckData]).then(promises => {
     const [ keystoneData, steamboatData, tellurideData, aspenData, vailData, breckData] = promises;
 
-//   keystoneData = promises[0];
-//   steamboatData = promises[1];
-//   tellurideData = promises[2];
-//   aspenData = promises[3];
-//   vailData = promises[4];
-//   breckData = promises[5];
   updateWeatherState(promises)// update on each of the promises/city
 }).catch(error => console.log(error.message));
   
 
 function updateWeatherState(promises) {
-
     promises.forEach(city => {
-        weatherData.resorts.push(city)
+        weatherData.resorts[city.city_name] = city.data;
     })
-    getChosenCity('Vail')
+    getChosenCity('Vail') // get this argument dynamically when clicking on resort?
     // make helper function 
     // go through one city, do calculations needed for that city, figure out what display looks like
 }   // updates state, updating an obj with citys data
 
 function getChosenCity(city) {
-    console.log(weatherData)
-  const chosenCity = weatherData.resorts.filter((resort) => {
-     return resort.city_name === city
-  })   
+    console.log(weatherData)  
+  const chosenCity = weatherData.resorts[city]
+  console.log(chosenCity, 'chosenCity')
    getDescription(chosenCity)
    getTemps(chosenCity)
    getTotalSnowAcc(chosenCity)
@@ -73,7 +81,7 @@ function getChosenCity(city) {
 }
 
 function getTotalSnowAcc(chosenCity) {
-    let totalSnow = chosenCity[0].data.reduce((acc, day) => {
+    let totalSnow = chosenCity.reduce((acc, day) => {
         acc += day.snow
  return acc
     },0)
@@ -83,8 +91,8 @@ function getTotalSnowAcc(chosenCity) {
 
 function getTemps(chosenCity) {
   let temps = [];
-  let hiTemp = chosenCity[0].data[0].max_temp * 9/5 + 32;
-  let loTemp = chosenCity[0].data[0].min_temp * 9/5 + 32;
+  let hiTemp = chosenCity[0].max_temp * 9/5 + 32;
+  let loTemp = chosenCity[0].min_temp * 9/5 + 32;
   temps.push(hiTemp)
   temps.push(loTemp)
   console.log(temps)
@@ -92,13 +100,21 @@ function getTemps(chosenCity) {
 }
 
 function getDescription(chosenCity) {
-    console.log(chosenCity[0].data[0].weather.description)
-  return chosenCity[0].data[0].weather.description
+    console.log(chosenCity[0].weather.description)
+  return chosenCity[0].weather.description
+}
+
+// no access to chosenCity here
+function addWeatherToDom() {
+    $( ".snow-acc" ).append(`"${getTotalSnowAcc(chosenCity)}"`)
+    $( ".high-low" ).append(`"${getTemps(chosenCity)}"`)
+    $( ".description" ).append(`"${getDescription(chosenCity)}"`)
 }
 
 function startMap() {
     $('main').on('click', '#showMap-btn', function (event){
         showMapSection();
+        // addWeatherToDom();
     })
 }
 
