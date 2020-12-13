@@ -55,21 +55,9 @@ header {
     display: flex;
 }
 
-.resort-img {
-    /* background-image: url("./images/resorts-map.png");
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    background-size: cover;
-    height:700px;
-    width: 700px; */
-    
-}
-
 .weather-data {
     justify-content: flex-end;
 }
-
-
 
 .hidden {
     display:none;
