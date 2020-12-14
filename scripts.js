@@ -6,6 +6,44 @@ function getData(city) {
     return fetch(url).then(data => data.json());
 }
 
+const myHeaders = new Headers();
+myHeaders.append("Authorization", "Bearer xrx7guNquPIQiWMzWI0ZHWFoRi9Maw8VDy7mFBzpUjVVhWgW5E7LxPaOBMuPDWxWTC3Rd5m9MeU6q6tn8NkdPfS4z36MHeUGY6_OhGK-ZSIVp5Ss2Hdt1oJ3QALNX3Yx");
+
+const requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+
+function getYelpData(city) {
+    const yelpRoot = "https://api.yelp.com/v3/businesses/search\n?location="
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const yelpUrl = `${proxyurl}${yelpRoot}${city}`
+    return fetch(yelpUrl, requestOptions)
+    .then(data => data.json());
+}
+
+function getYelpHandler() {
+    $('main').on('click', '.showYelp-btn', function (event){
+        showResultSection();
+        const val = $('.city-name').text();
+        console.log(val)
+        getYelpData(val).then(function(data) {
+            console.log(data, 'yelp-data')
+             data.businesses.forEach(business => {
+                $('.yelp-list').append(`<li>
+        <h2 class="yelpRest-name">${business.name}</h2>
+        <p>Number of stars: ${business.rating}</p>
+        <p>Price: ${business.price}</p>
+        <p>Address: ${business.location.display_address}</p>
+        <p>Phone: ${business.display_phone}</p>
+      </li>`)
+            })
+        })
+    })
+}
+
 var mymap = L.map('mapid').setView([39.5501, -105.7821], 7);
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -38,7 +76,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
         console.log(event.target.options.id)
     })
 
-  L.marker([39.2084, -106.9491], { id: "Aspen Snowmass" })
+  L.marker([39.2084, -106.9491], { id: "Aspen" })
     .addTo(mymap)
     .bindPopup("<b>Aspen Snowmass</b>")
     .on("click", function(event) {
@@ -62,9 +100,9 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
         console.log(event.target.options.id)
     })
 
-  L.marker([39.5792, -105.9347], { id: "Keystone" })
+  L.marker([39.8868, -105.7625], { id: "Winter Park" })
     .addTo(mymap)
-    .bindPopup("<b>Keystone</b>")
+    .bindPopup("<b>Winter Park</b>")
     .on("click", function(event) {
         var id = event.target.options.id;
         console.log(event.target.options.id)
@@ -147,6 +185,7 @@ function showResultSection() {
 function renderDom() {
     startMap()
     showResults()
+    getYelpHandler()
 }
 
 $(renderDom)
