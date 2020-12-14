@@ -55,8 +55,9 @@ header {
     display: flex;
 }
 
-.weather-data {
+.weather-aside {
     justify-content: flex-end;
+    margin-left: 15%;
 }
 
 .hidden {
