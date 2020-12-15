@@ -32,14 +32,20 @@
       </section>
       <section class="resort-map hidden">
         <div id="mapid"></div>
-        <aside class='weather-aside'>
+        <section class="placeholder">
+          <b class='select'>Select a resort on the map to see weather data!</b>
+        </section>
+        <aside class='weather-aside hidden'>
        <h2 class='weather-heading'>Weather Data</h2>
        <h3 class='city-name'>City name here</h3>
        <ul class='weather-data'>
-         <h4>Forecast Data for the next 16 days</h4>
-         <li class='snow-acc'>Projected total snow (in):</li>
+         <h4>Snow Report</h4>
+         <li class='todays-snow'></li>
+         <li class='twoDay-snow'></li>
+         <li class='snow-acc'></li>
          <h4>Todays Data</h4>
-         <li class='hi-low'>High, Low temperatures:</li>
+         <li class='hi'></li>
+         <li class='low'></li>
          <li class='description'></li>
        </ul>
        <button class='showYelp-btn'>Show Restauraunts for this city!</button>
