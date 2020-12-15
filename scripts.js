@@ -48,8 +48,8 @@ function renderYelpSection() {
 function updateWeatherDom(data) {
     $(".city-name").html(data.city_name)
     $(".snow-acc").html('Projected total snow for next 16 days: ' + getTotalSnowAcc(data) + ' in')
-    $(".hi").html('High: ' + getHiTemp(data))
-    $(".low").html('Low: ' + getLowTemp(data))
+    $(".hi").html('High: ' + getHiTemp(data) + ' F')
+    $(".low").html('Low: ' + getLowTemp(data) + ' F')
     $(".todays-snow").html('Snow for next 24 hours: ' + getTodaysSnow(data) + ' in')
     $(".twoDay-snow").html('Snow for next 48 hours: ' + getTwoDaySnow(data) + ' in')
     $(".description").html('Todays weather: ' +getDescription(data))
