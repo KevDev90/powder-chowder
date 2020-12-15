@@ -3,10 +3,24 @@
     background-position: center top;
     background-size: 100% auto;
     background-repeat: no-repeat;
-    text-indent: 40px;
+    text-indent: 80px;
     padding-top: 3%;
     height: 100vh;
     width: 100vw;
+}
+
+.placeholder {
+    background-image: url("./images/resort.jpg");
+    background-position: center top;
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 55vw;
+}
+
+.select {
+    margin-left: 15%;
+    font-size: 23px;
 }
 
 .resorts-img {
@@ -22,7 +36,7 @@ ul {
     list-style-type: none;
 }
 
-.showMap-btn {
+#showMap-btn {
     display: block;
     margin-left: auto;
     margin-right: auto 
