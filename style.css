@@ -28,6 +28,20 @@
     width: 45vw;
 }
 
+.button {
+    border: 1px solid blue;
+    background-color: blue;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-red {
+    background-color: red;
+    border: red
+}
+
 h2 {
     text-align: center;  
 }
@@ -72,8 +86,34 @@ header {
 .weather-aside {
     justify-content: flex-end;
     margin-left: 15%;
+    background-color: #ddd;
+}
+
+.weather-heading {
+    border-bottom: 1px solid;
+}
+
+.city-name {
+    padding: 5px 10px;
+}
+
+.weather-data {
+    padding: 0 10px;
 }
 
 .hidden {
     display:none;
+}
+
+.yelp-list li {
+    width: 400px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.yelp-list h2 {
+    border-bottom: 1px solid #ccc;
 }
