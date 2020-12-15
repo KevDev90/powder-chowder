@@ -15,6 +15,7 @@ const requestOptions = {
   redirect: 'follow'
 };
 
+let yelpData = {};
 
 function getYelpData(city) {
     const yelpRoot = "https://api.yelp.com/v3/businesses/search\n?location="
@@ -27,21 +28,31 @@ function getYelpData(city) {
 function getYelpHandler() {
     $('main').on('click', '.showYelp-btn', function (event){
         showResultSection();
-        const val = $('.city-name').text();
-        console.log(val)
-        getYelpData(val).then(function(data) {
-            console.log(data, 'yelp-data')
-             data.businesses.forEach(business => {
-                $('.yelp-list').append(`<li>
-        <h2 class="yelpRest-name">${business.name}</h2>
-        <p>Number of stars: ${business.rating}</p>
-        <p>Price: ${business.price}</p>
-        <p>Address: ${business.location.display_address}</p>
-        <p>Phone: ${business.display_phone}</p>
-      </li>`)
-            })
-        })
+        renderYelpSection()
     })
+}
+
+function renderYelpSection() {
+    console.log(yelpData)
+    yelpData.businesses.forEach(business => {
+        $('.yelp-list').append(`<li>
+<h2 class="yelpRest-name">${business.name}</h2>
+<p>Number of stars: ${business.rating}</p>
+<p>Price: ${business.price}</p>
+<p>Address: ${business.location.display_address}</p>
+<p>Phone: ${business.display_phone}</p>
+</li>`)
+    })
+}
+
+function updateWeatherDom(data) {
+    $(".city-name").html(data.city_name)
+    $(".snow-acc").html('Projected total snow for next 16 days: ' + getTotalSnowAcc(data) + ' in')
+    $(".hi").html('High: ' + getHiTemp(data))
+    $(".low").html('Low: ' + getLowTemp(data))
+    $(".todays-snow").html('Snow for next 24 hours: ' + getTodaysSnow(data) + ' in')
+    $(".twoDay-snow").html('Snow for next 48 hours: ' + getTwoDaySnow(data) + ' in')
+    $(".description").html('Todays weather: ' +getDescription(data))
 }
 
 var mymap = L.map('mapid').setView([39.5501, -105.7821], 7);
@@ -58,55 +69,85 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     .addTo(mymap)
     .bindPopup("<b>Breckenridge</b>")
     .on("click", function(event) {
-      var id = event.target.options.id;
-      getData(id).then(function(data) {
-          console.log(data)
-          $(".city-name").html(data.city_name)
-          $(".snow-acc").html(getTotalSnowAcc(data))
-          $(".hi-low").html(getTemps(data))
-          $(".description").html(getDescription(data))
-      })
-  })
+    showWeather()
+    var id = event.target.options.id;
+    getData(id).then(function(data) {
+      updateWeatherDom(data)
+    })
+    getYelpData(id).then(function(data) {
+      yelpData = data;
+    })
+})
 
   L.marker([39.6403, -106.3742], { id: "Vail" })
     .addTo(mymap)
     .bindPopup("<b>Vail</b>")
     .on("click", function(event) {
-        var id = event.target.options.id;
-        console.log(event.target.options.id)
+    showWeather()
+    var id = event.target.options.id;
+    getData(id).then(function(data) {
+      updateWeatherDom(data)
     })
+    getYelpData(id).then(function(data) {
+        yelpData = data;
+    })
+})
 
   L.marker([39.2084, -106.9491], { id: "Aspen" })
     .addTo(mymap)
     .bindPopup("<b>Aspen Snowmass</b>")
     .on("click", function(event) {
-        var id = event.target.options.id;
-        console.log(event.target.options.id)
+    showWeather()
+    var id = event.target.options.id;
+    getData(id).then(function(data) {
+      updateWeatherDom(data)
     })
+    getYelpData(id).then(function(data) {
+      yelpData = data;
+    })
+})
 
   L.marker([37.9375, -107.8123], { id: "Telluride" })
     .addTo(mymap)
     .bindPopup("<b>Telluride</b>")
     .on("click", function(event) {
-        var id = event.target.options.id;
-        console.log(event.target.options.id)
+    showWeather()
+    var id = event.target.options.id;
+    getData(id).then(function(data) {
+      updateWeatherDom(data)
     })
+    getYelpData(id).then(function(data) {
+      yelpData = data;
+    })
+})
 
   L.marker([40.4850, -106.8317], { id: "Steamboat Springs" })
     .addTo(mymap)
     .bindPopup("<b>Steamboat Springs</b>")
     .on("click", function(event) {
-        var id = event.target.options.id;
-        console.log(event.target.options.id)
+    showWeather()
+    var id = event.target.options.id;
+    getData(id).then(function(data) {
+      updateWeatherDom(data)
     })
+    getYelpData(id).then(function(data) {
+      yelpData = data;
+    })
+})
 
   L.marker([39.8868, -105.7625], { id: "Winter Park" })
     .addTo(mymap)
     .bindPopup("<b>Winter Park</b>")
     .on("click", function(event) {
-        var id = event.target.options.id;
-        console.log(event.target.options.id)
+    showWeather()
+    var id = event.target.options.id;
+    getData(id).then(function(data) {
+      updateWeatherDom(data)
     })
+    getYelpData(id).then(function(data) {
+      yelpData = data;
+    })
+})
     // workaround to display leaflet popups by default, look into this more
     // var markers = [
     //     {pos: [39.4817, -106.0384], id: "Breckenridge", popup: "<b>Breckenridge</b>"},
@@ -132,28 +173,39 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
         mymap.invalidateSize();
      }, 100);
 
+function showWeather() {
+    $( ".placeholder" ).addClass( "hidden" )
+    $( ".weather-aside" ).removeClass( "hidden" )
+}
+
 function getTotalSnowAcc(chosenCity) {
-    console.log(chosenCity, 'lookyhere')
     let totalSnow = chosenCity.data.reduce((acc, day) => {
         acc += day.snow
  return acc
     },0)
-    console.log(totalSnow)
-   return totalSnow
+   return Math.round(totalSnow * 0.0393701);
 }
 
-function getTemps(chosenCity) {
-  let temps = [];
-  let hiTemp = chosenCity.data[0].max_temp * 9/5 + 32;
-  let loTemp = chosenCity.data[0].min_temp * 9/5 + 32;
-  temps.push(hiTemp)
-  temps.push(loTemp)
-  console.log(temps)
-  return temps
+function getTodaysSnow(chosenCity) {
+  return Math.round(chosenCity.data[0].snow * 0.0393701)
 }
+
+function getTwoDaySnow(chosenCity) {
+    let snowCount = Math.round(chosenCity.data[0].snow * 0.0393701) + Math.round(chosenCity.data[1].snow * 0.0393701);
+    return snowCount;
+}
+
+function getHiTemp(chosenCity) {
+  let hiTemp = Math.round(chosenCity.data[0].max_temp * 9/5 + 32);
+  return hiTemp;
+}
+
+function getLowTemp(chosenCity) {
+    let loTemp = Math.round(chosenCity.data[0].min_temp * 9/5 + 32);
+    return loTemp
+  }
 
 function getDescription(chosenCity) {
-    console.log(chosenCity.data[0].weather.description)
   return chosenCity.data[0].weather.description
 }
 
