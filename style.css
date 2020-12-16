@@ -121,7 +121,7 @@ header {
 
 .yelp-list li {
     width: 300px;
-    height: 250px;
+    height: 330px;
     display: inline-block;
     border: 1px solid #ccc;
     margin: 10px;
@@ -132,3 +132,19 @@ header {
 .yelp-list h2 {
     border-bottom: 1px solid #ccc;
 }
+
+.sort-rating-btn {
+    margin-right: 50px;
+}
+
+.sort-price-btn {
+    margin-left: 50px;
+}
+
+@media all and (min-width: 950px) {
+    
+    }
+  
+@media screen and (max-width: 520px) {
+        
+    }

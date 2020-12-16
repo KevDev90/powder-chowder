@@ -32,6 +32,54 @@ function getYelpHandler() {
     })
 }
 
+function sortHandler() {
+    $('main').on('click', '.sort-rating-btn', function (event){
+        // showResultSection();
+        sortYelpByRating()
+        renderYelpSection()
+    })
+
+    $('main').on('click', '.sort-price-btn', function (event){
+        // showResultSection();
+        console.log('inthere')
+        sortYelpByPrice()
+        renderYelpSection()
+    })
+
+
+}
+
+function sortYelpByRating() {
+   yelpData.businesses.sort((a, b) => {
+    return b.rating - a.rating;
+  })
+}
+
+
+
+// function sortYelpByPrice() {
+//   yelpData.businesses.sort((a, b) => {
+//       if(a.price || b.price === '$') {
+//         a.price = 1;
+//       }
+//       if(a.price || b.price === '$$') {
+//         a.price = 2;
+//     }
+//       if(a.price || b.price === '$$$') {
+//          a.price = 3;
+//     }
+//       if(a.price || b.price === '$$$$') {
+//         a.price = 4;
+//     }
+//     return b.price - a.price;
+//   })
+//   console.log(yelpData, 'aftersort')
+// }
+
+
+
+
+
 function renderYelpSection() {
     console.log(yelpData)
     $('.yelp-list').html('');
@@ -42,6 +90,8 @@ function renderYelpSection() {
             <p>Price: ${business.price}</p>
             <p>Address: ${business.location.display_address}</p>
             <p>Phone: ${business.display_phone}</p>
+            <p>Cuisine Type: ${business.categories[0].title}</p>
+            <a href="${business.url}" target="_blank">${business.name} website</a>
             </li>`)
     })
 }
@@ -95,7 +145,6 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     getData(id).then(function(data) {
       updateWeatherDom(data)
     })
-    console.log(id, 'vailID')
     getYelpData(id).then(function(data) {
         console.log(data, 'yelpData')
         yelpData = data;
@@ -112,7 +161,6 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     getData(id).then(function(data) {
       updateWeatherDom(data)
     })
-    console.log(id, 'aspenID')
     getYelpData(id).then(function(data) {
       yelpData = data;
     })
@@ -127,7 +175,6 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     getData(id).then(function(data) {
       updateWeatherDom(data)
     })
-    console.log(id, 'tellurideID')
     getYelpData(id).then(function(data) {
       yelpData = data;
     })
@@ -142,7 +189,6 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     getData(id).then(function(data) {
       updateWeatherDom(data)
     })
-    console.log(id, 'steamboatID')
     getYelpData(id).then(function(data) {
       yelpData = data;
     })
@@ -154,11 +200,9 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     .on("click", function(event) {
     showWeather()
     var id = event.target.options.id;
-    console.log(id, 'winterParkId')
     getData(id).then(function(data) {
       updateWeatherDom(data)
     })
-    console.log(id, 'winterparkID')
     getYelpData(id).then(function(data) {
       yelpData = data;
     })
@@ -275,6 +319,7 @@ function renderDom() {
     startMap()
     showResults()
     getYelpHandler()
+    sortHandler()
 }
 
 $(renderDom)
