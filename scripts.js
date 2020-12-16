@@ -245,9 +245,6 @@ function getResortLink() {
     if($(".city-name").text() === 'Fraser') {
         $(".resort-link").html('<a href="https://www.winterparkresort.com/" target="_blank">Winter Park Website</a>')
     }
-     
-
-    
 }
 
 function startMap() {
@@ -273,7 +270,6 @@ function showResultSection() {
     $( ".resort-map" ).addClass( "hidden")
     $( ".results-page" ).removeClass( "hidden")
 }
-
 
 function renderDom() {
     startMap()
