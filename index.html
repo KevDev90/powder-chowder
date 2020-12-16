@@ -23,10 +23,10 @@
   </header>
   <main>
       <section class="landing-page">
-        <h2>Welcome to Powder and Chowder!</h2>
+        <h2 class='welcome'>Welcome to Powder and Chowder!</h2>
           <p>Your one stop Application for planning your next Colorado Mountain Adventure!</p>
           <p>This application takes in real time weather forecasts to help you plan your next ski or snowboarding adventure!</p>
-          <p>After selecting a resort, a user will then be given a list of restauraunts in that resorts area to refuel for the adventure!</p>
+          <p>After selecting a resort, a user can click the 'Show Restaurants' button and will then be given a list of restauraunts in that resorts area!</p>
           <p>This application was developed to interact with local resorts here in Colorado.</p>
           <button id='showMap-btn' class='button btn-red'>Click here to get started!</button>
       </section>
@@ -34,8 +34,24 @@
         <div id="mapid"></div>
         <section class="placeholder">
           <b class='select'>Select a resort on the map to see weather data!</b>
+          <aside class='weather-aside hidden'>
+            <h2 class='weather-heading'>Weather Data</h2>
+            <h3 class='city-name'>City name here</h3>
+            <ul class='weather-data'>
+              <h4>Snow Report</h4>
+              <li class='todays-snow'></li>
+              <li class='twoDay-snow'></li>
+              <li class='snow-acc'></li>
+              <h4>Todays Data</h4>
+              <li class='hi'></li>
+              <li class='low'></li>
+              <li class='description'></li>
+              <li class='resort-link'></li>
+            </ul>
+            <button class='showYelp-btn button'>Show Restauraunts for this city!</button>
+             </aside>
         </section>
-        <aside class='weather-aside hidden'>
+        <!-- <aside class='weather-aside hidden'>
        <h2 class='weather-heading'>Weather Data</h2>
        <h3 class='city-name'>City name here</h3>
        <ul class='weather-data'>
@@ -49,13 +65,12 @@
          <li class='description'></li>
        </ul>
        <button class='showYelp-btn button'>Show Restauraunts for this city!</button>
-        </aside>
-        <button id='showResults-btn'>Show results!</button>
+        </aside> -->
       </section>
       <section class="results-page hidden">
+        <button id='showMap-btn' class='button'>Go back to resort map!</button>
         <ul class="yelp-list">
           </ul>
-        <button id='showMap-btn' class='button'>Go back to resort map!</button>
       </section>
   </main>
   <script src="https://code.jquery.com/jquery-3.4.1.slim.js" crossorigin="anonymous"></script>
