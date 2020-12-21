@@ -20,7 +20,7 @@
     background-position: center top;
     background-size: 100% auto;
     background-repeat: no-repeat;
-    height: 75vh;
+    height: 60vh;
     width: 55vw;
 }
 
@@ -74,27 +74,29 @@ header {
 }
 
 #mapid {
-    justify-content: flex-start;
-     height: 75vh; 
+     height: 60vh; 
      width: 45vw;
 }
 
 
-#showResults-btn {
-    position: absolute;
-    top: 90%;
-    left: 50%;
+.results-page {
+    grid-area: yelp;
 }
 
-.resort-map {
-    display: flex;
+.grid-container {
+    display: grid;
+    grid-template-columns: 45% 45%;
+    grid-gap: 10px;
+
 }
 
 .weather-aside {
-    justify-content: flex-end;
-    margin-left: 25%;
+    grid-area: weather;
     background-color: #ddd;
     width: 350px;
+    margin-left:auto;
+    margin-right:auto;
+    border-radius: 10px;
 }
 
 .weather-heading {
@@ -114,11 +116,6 @@ header {
     display:none;
 }
 
-.yelp-list {
-    display: flex;
-    flex-wrap: wrap;
-}
-
 .yelp-list li {
     width: 300px;
     height: 330px;
@@ -127,6 +124,7 @@ header {
     margin: 10px;
     padding: 10px;
     border-radius: 10px;
+    background-color: #ddd;
 }
 
 .yelp-list h2 {
