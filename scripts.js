@@ -27,7 +27,7 @@ function getYelpData(city) {
 
 function getYelpHandler() {
     $('main').on('click', '.showYelp-btn', function (event){
-        showResultSection();
+        // showResultSection();
         renderYelpSection()
     })
 }
@@ -38,15 +38,6 @@ function sortHandler() {
         sortYelpByRating()
         renderYelpSection()
     })
-
-    $('main').on('click', '.sort-price-btn', function (event){
-        // showResultSection();
-        console.log('inthere')
-        sortYelpByPrice()
-        renderYelpSection()
-    })
-
-
 }
 
 function sortYelpByRating() {
@@ -56,43 +47,22 @@ function sortYelpByRating() {
 }
 
 
-
-// function sortYelpByPrice() {
-//   yelpData.businesses.sort((a, b) => {
-//       if(a.price || b.price === '$') {
-//         a.price = 1;
-//       }
-//       if(a.price || b.price === '$$') {
-//         a.price = 2;
-//     }
-//       if(a.price || b.price === '$$$') {
-//          a.price = 3;
-//     }
-//       if(a.price || b.price === '$$$$') {
-//         a.price = 4;
-//     }
-//     return b.price - a.price;
-//   })
-//   console.log(yelpData, 'aftersort')
-// }
-
-
-
-
-
 function renderYelpSection() {
-    console.log(yelpData)
-    $('.yelp-list').html('');
+  $('.yelp-list').html('');
+  $('.yelp-list').append(`<button class='sort-rating-btn button'>Sort Restauraunts by Rating!</button><br>`)
     yelpData.businesses.forEach(business => {
         $('.yelp-list').append(`<li>
             <h2 class="yelpRest-name">${business.name}</h2>
             <p>Number of stars: ${business.rating}</p>
+            <div class='yelp-content'>
             <p>Price: ${business.price}</p>
             <p>Address: ${business.location.display_address}</p>
             <p>Phone: ${business.display_phone}</p>
             <p>Cuisine Type: ${business.categories[0].title}</p>
             <a href="${business.url}" target="_blank">${business.name} website</a>
+            </div>
             </li>`)
+            
     })
 }
 // have this return a template fn instead of doing all these jquery fns
@@ -177,6 +147,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     })
     getYelpData(id).then(function(data) {
       yelpData = data;
+      console.log(yelpData, 'tellurideYelpData')
     })
 })
 
@@ -305,7 +276,7 @@ function showResults() {
 
 function showMapSection() {
     $( ".landing-page" ).addClass( "hidden" )
-    $( ".results-page" ).addClass( "hidden" )
+    // $( ".results-page" ).addClass( "hidden" )
     $( ".resort-map" ).removeClass( "hidden" )
 }
 
