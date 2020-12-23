@@ -18,11 +18,14 @@ const requestOptions = {
 let yelpData = {};
 
 function getYelpData(city) {
+  console.log('getyelpdata-called')
     const yelpRoot = "https://api.yelp.com/v3/businesses/search\n?location="
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
     const yelpUrl = `${proxyurl}${yelpRoot}${city} + ',co'`
     return fetch(yelpUrl, requestOptions)
-    .then(data => data.json());
+    .then(data => data.json())
+    .then(console.log('fetch-completed'))
+    .catch(error => console.log(error));
 }
 
 function getYelpHandler() {
@@ -46,14 +49,24 @@ function sortYelpByRating() {
   })
 }
 
+// function dropDown() {
+//   $('main').on('click', '.yelp-card', function (event){
+//     $(this).find(".yelp-content").toggleClass('hidden')
+//   })
+// }
+
+
 
 function renderYelpSection() {
+  console.log(yelpData, 'yelpData')
   $('.yelp-list').html('');
   $('.yelp-list').append(`<button class='sort-rating-btn button'>Sort Restauraunts by Rating!</button><br>`)
     yelpData.businesses.forEach(business => {
-        $('.yelp-list').append(`<li>
+        $('.yelp-list').append(`<li class='yelp-card result'>
+            <div class='yelp-heading'>
             <h2 class="yelpRest-name">${business.name}</h2>
             <p>Number of stars: ${business.rating}</p>
+            </div>
             <div class='yelp-content'>
             <p>Price: ${business.price}</p>
             <p>Address: ${business.location.display_address}</p>
@@ -179,28 +192,6 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     })
 })
 
-
-    // workaround to display leaflet popups by default, look into this more
-    // var markers = [
-    //     {pos: [39.4817, -106.0384], id: "Breckenridge", popup: "<b>Breckenridge</b>"},
-    //     // {pos: [51.50, -0.09], popup: "This is the popup for marker #2"},
-    //     // {pos: [51.49, -0.08], popup: "This is the popup for marker #3"}];
-    // ];
-    // markers.forEach(function (obj) {
-    //     var m = L.marker(obj.pos).addTo(mymap),
-    //         p = new L.Popup({ autoClose: false, closeOnClick: false })
-    //                 .setContent(obj.popup)
-    //                 .setLatLng(obj.pos);
-    //                 m.bindPopup(p).openPopup().on("click", function(event) {
-    //                     var id = event.target.options.id;
-    //                     console.log(id)
-    //                     getData(id).then(function(data) {
-    //                         console.log(data)
-    //                         $(".city-name").html(data.city_name)
-    //                     })
-    //                 });
-    // })
-
     setInterval(function () {
         mymap.invalidateSize();
      }, 100);
@@ -263,7 +254,7 @@ function getResortLink() {
 }
 
 function startMap() {
-    $('main').on('click', '#showMap-btn', function (event){
+    $('section').on('click', '#showMap-btn', function (event){
         showMapSection();
     })
 }
@@ -275,6 +266,7 @@ function showResults() {
 }
 
 function showMapSection() {
+  console.log('hittinginthere')
     $( ".landing-page" ).addClass( "hidden" )
     // $( ".results-page" ).addClass( "hidden" )
     $( ".resort-map" ).removeClass( "hidden" )
@@ -291,6 +283,7 @@ function renderDom() {
     showResults()
     getYelpHandler()
     sortHandler()
+    // dropDown()
 }
 
 $(renderDom)

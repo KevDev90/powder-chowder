@@ -33,7 +33,7 @@
       <section class="resort-map hidden">
         <div class="grid-container">
           <div id="mapid"></div>
-          <section class="placeholder">
+          <div class="placeholder">
             <b class='select'>Select a resort on the map to see weather data!</b>
             <aside class='weather-aside hidden'>
               <h2 class='weather-heading'>Weather Data</h2>
@@ -51,14 +51,46 @@
               </ul>
               <button class='showYelp-btn button'>Show Restauraunts for this city!</button>
                </aside>
-          </section>
+              </div>
         </div>
-        <section class="results-page">
+        <section id="results" class="results-page">
           <ul class="yelp-list">
             </ul>
         </section>
       </section>
   </main>
+
+
+  <!-- <main>
+    <header>
+      <section id="map">
+        <div id="mapid"></div>
+      </section>
+      <section id="weather">
+        <aside class='weather-aside hidden'>
+          <h2 class='weather-heading'>Weather Data</h2>
+          <h3 class='city-name'>City name here</h3>
+          <ul class='weather-data'>
+            <h4>Snow Report</h4>
+            <li class='todays-snow'></li>
+            <li class='twoDay-snow'></li>
+            <li class='snow-acc'></li>
+            <h4>Todays Data</h4>
+            <li class='hi'></li>
+            <li class='low'></li>
+            <li class='description'></li>
+            <li class='resort-link'></li>
+          </ul>
+          <button class='showYelp-btn button'>Show Restauraunts for this city!</button>
+           </aside>
+      </section>
+    </header>
+
+    <section id="results">
+      <ul class="yelp-list">
+      </ul>
+    </section>
+  </main> -->
   <script src="https://code.jquery.com/jquery-3.4.1.slim.js" crossorigin="anonymous"></script>
   <script src="scripts.js"></script>
 </body>
