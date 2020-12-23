@@ -22,7 +22,7 @@
     <h1>Powder and Chowder</h1>
   </header>
   <main>
-      <section class="landing-page">
+      <section class="landing-page" aria-label="Landing Page">
         <h2 class='welcome'>Welcome to Powder and Chowder!</h2>
           <p>Your one stop Application for planning your next Colorado Mountain Adventure!</p>
           <p>This application takes in real time weather forecasts to help you plan your next ski or snowboarding adventure!</p>
@@ -30,7 +30,8 @@
           <p>This application was developed to interact with local resorts here in Colorado.</p>
           <button id='showMap-btn' class='button btn-red'>Click here to get started!</button>
       </section>
-      <section class="resort-map hidden">
+      <section class="resort-map hidden" aria-label="Main display page">
+        <h2 class='hidden'>Main display section</h2>
         <div class="grid-container">
           <div id="mapid"></div>
           <div class="placeholder">
@@ -39,11 +40,11 @@
               <h2 class='weather-heading'>Weather Data</h2>
               <h3 class='city-name'>City name here</h3>
               <ul class='weather-data'>
-                <h4>Snow Report</h4>
+                <li><h4>Snow Report</h4></li>
                 <li class='todays-snow'></li>
                 <li class='twoDay-snow'></li>
                 <li class='snow-acc'></li>
-                <h4>Todays Data</h4>
+                <li><h4>Todays Data</h4></li>
                 <li class='hi'></li>
                 <li class='low'></li>
                 <li class='description'></li>
@@ -53,44 +54,13 @@
                </aside>
               </div>
         </div>
-        <section id="results" class="results-page">
-          <ul class="yelp-list">
+        <section class="results-page" aria-label="Yelp Results Section">
+          <h2 class='hidden'>Yelp Results Section</h2>
+          <ul class="yelp-list" id="results">
             </ul>
         </section>
       </section>
   </main>
-
-
-  <!-- <main>
-    <header>
-      <section id="map">
-        <div id="mapid"></div>
-      </section>
-      <section id="weather">
-        <aside class='weather-aside hidden'>
-          <h2 class='weather-heading'>Weather Data</h2>
-          <h3 class='city-name'>City name here</h3>
-          <ul class='weather-data'>
-            <h4>Snow Report</h4>
-            <li class='todays-snow'></li>
-            <li class='twoDay-snow'></li>
-            <li class='snow-acc'></li>
-            <h4>Todays Data</h4>
-            <li class='hi'></li>
-            <li class='low'></li>
-            <li class='description'></li>
-            <li class='resort-link'></li>
-          </ul>
-          <button class='showYelp-btn button'>Show Restauraunts for this city!</button>
-           </aside>
-      </section>
-    </header>
-
-    <section id="results">
-      <ul class="yelp-list">
-      </ul>
-    </section>
-  </main> -->
   <script src="https://code.jquery.com/jquery-3.4.1.slim.js" crossorigin="anonymous"></script>
   <script src="scripts.js"></script>
 </body>

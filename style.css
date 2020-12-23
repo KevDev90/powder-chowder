@@ -1,9 +1,8 @@
 .landing-page {
     background-image: url("./images/ski.png");
     background-position: center top;
-    background-size: 100% auto;
+    background-size: cover;
     background-repeat: no-repeat;
-    text-indent: 80px;
     padding-top: 3%;
     height: 100vh;
     width: 100vw;
@@ -55,6 +54,8 @@ h2 {
 
 ul {
     list-style-type: none;
+    padding: 0;
+
 }
 
 #showMap-btn {
@@ -75,7 +76,7 @@ header {
 
 #mapid {
      height: 60vh; 
-     width: 45vw;
+     width: 46vw;
 }
 
 
@@ -97,11 +98,13 @@ header {
     margin-left:auto;
     margin-right:auto;
     border-radius: 10px;
+    padding: 10px;
 }
 
 .weather-heading {
     border-bottom: 1px solid;
     margin-right: 30%;
+    width: 100%;
 }
 
 .city-name {
@@ -116,27 +119,14 @@ header {
     display:none;
 }
 
-.yelp-heading:hover  {
-    background: #fdf8d7;
-
-}
-
-.yelp-heading:active  {
-    background: #fdf8d7;
-
-}
-
 .yelp-content {
-    /* display: none; */
 	border-bottom: 1px solid #DDE0E7;
-	/* background: #fff; */
 	padding: 1.4rem;
 	color: #4a5666;
 }
 
 
 .yelp-list li {
-    width: 300px;
     height: 500px;
     display: inline-block;
     border: 1px solid #ccc;
@@ -152,6 +142,7 @@ header {
 
 .sort-rating-btn {
     margin-right: 50px;
+    margin-top: 20px;
 }
 
 .sort-price-btn {
@@ -169,31 +160,43 @@ header {
         margin-bottom: 0;
     }
 
-    /* header section#map {
-        width: 50%;
+    #results {
+        display: grid;
+        grid-template-columns: 33% 33% 33%;
+        grid-gap: 5px;
     }
 
-    header section#weather {
-        width: 50%;
-    } */
 
-    section#results {
-        display: flex;
-        flex-direction: row;
-        width: 100%;
-        flex-wrap: wrap;
+    /* Tablet Screen */
+@media screen and (max-width: 768px) {
+    #results {
+        grid-template-columns: 45% 45%;
+        grid-gap: 50px;
     }
+}
 
-    section#results .result {
-        width: 300px;
-        height: 400px;
-        flex: 1 1 150px;
-    }
-
-    @media all and (min-width: 950px) {
-      
-    }
   
-@media screen and (max-width: 520px) {
-        
-    }
+    /* Mobile Screen */
+@media screen and (max-width: 480px) {
+        .grid-container {
+            display: block
+        }
+
+        #mapid, .placeholder {
+            width: 100vw;
+        }
+
+        .weather-aside {
+            position: relative;
+            top: 10px;
+        }
+
+        #results {
+            display: block;
+            margin-left: 30px;
+        }
+
+        .yelp-list li {
+            height: inherit;
+        }
+}

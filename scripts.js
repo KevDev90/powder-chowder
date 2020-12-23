@@ -30,8 +30,8 @@ function getYelpData(city) {
 
 function getYelpHandler() {
     $('main').on('click', '.showYelp-btn', function (event){
-        // showResultSection();
-        renderYelpSection()
+        addSortButton();
+        renderYelpSection();
     })
 }
 
@@ -40,6 +40,7 @@ function sortHandler() {
         // showResultSection();
         sortYelpByRating()
         renderYelpSection()
+
     })
 }
 
@@ -55,12 +56,15 @@ function sortYelpByRating() {
 //   })
 // }
 
+function addSortButton() {
+  $('.results-page').prepend(`<button class='sort-rating-btn button'>Sort Restauraunts by Rating!</button><br>`)
+}
 
 
 function renderYelpSection() {
   console.log(yelpData, 'yelpData')
   $('.yelp-list').html('');
-  $('.yelp-list').append(`<button class='sort-rating-btn button'>Sort Restauraunts by Rating!</button><br>`)
+  // $('.results-page').prepend(`<button class='sort-rating-btn button'>Sort Restauraunts by Rating!</button><br>`)
     yelpData.businesses.forEach(business => {
         $('.yelp-list').append(`<li class='yelp-card result'>
             <div class='yelp-heading'>
