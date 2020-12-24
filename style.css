@@ -166,6 +166,10 @@ header {
         grid-gap: 5px;
     }
 
+    .p-wrapper {
+        margin-left: 10px;
+    }
+
 
     /* Tablet Screen */
 @media screen and (max-width: 768px) {
