@@ -1,4 +1,3 @@
-
 function getData(city) {
     const root = 'https://api.weatherbit.io/v2.0/forecast/daily?city=';
     const key = ',CO&key=7b9c18c9fd2f453094f58a867fafa27c'
@@ -37,7 +36,6 @@ function getYelpHandler() {
 
 function sortHandler() {
     $('main').on('click', '.sort-rating-btn', function (event){
-        // showResultSection();
         sortYelpByRating()
         renderYelpSection()
 
@@ -50,14 +48,8 @@ function sortYelpByRating() {
   })
 }
 
-// function dropDown() {
-//   $('main').on('click', '.yelp-card', function (event){
-//     $(this).find(".yelp-content").toggleClass('hidden')
-//   })
-// }
-
 function addSortButton() {
-  $('.results-page').prepend(`<button class='sort-rating-btn button'>Sort Restauraunts by Rating!</button><br>`)
+  $( ".sort-rating-btn" ).removeClass( "hidden" )
 }
 
 
@@ -82,7 +74,7 @@ function renderYelpSection() {
             
     })
 }
-// have this return a template fn instead of doing all these jquery fns
+
 function updateWeatherDom(data) {
     console.log(data)
     $(".city-name").html(data.city_name)
@@ -287,7 +279,6 @@ function renderDom() {
     showResults()
     getYelpHandler()
     sortHandler()
-    // dropDown()
 }
 
 $(renderDom)
