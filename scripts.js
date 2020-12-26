@@ -1,10 +1,4 @@
-function getData(city) {
-    const root = 'https://api.weatherbit.io/v2.0/forecast/daily?city=';
-    const key = ',CO&key=7b9c18c9fd2f453094f58a867fafa27c'
-    const url = `${root}${city}${key}`;
-    return fetch(url).then(data => data.json());
-}
-
+// Establishes a new header object with the Authorization and Bearer to retrieve Yelp data
 const myHeaders = new Headers();
 myHeaders.append("Authorization", "Bearer xrx7guNquPIQiWMzWI0ZHWFoRi9Maw8VDy7mFBzpUjVVhWgW5E7LxPaOBMuPDWxWTC3Rd5m9MeU6q6tn8NkdPfS4z36MHeUGY6_OhGK-ZSIVp5Ss2Hdt1oJ3QALNX3Yx");
 
@@ -14,8 +8,19 @@ const requestOptions = {
   redirect: 'follow'
 };
 
+// global yelpData store array that gets updated when the user clicks on a map marker
 let yelpData = {};
 
+// Fetches weather data based on which city is selected on the map
+function getWeatherData(city) {
+  const root = 'https://api.weatherbit.io/v2.0/forecast/daily?city=';
+  const key = ',CO&key=7b9c18c9fd2f453094f58a867fafa27c'
+  const url = `${root}${city}${key}`;
+  return fetch(url).then(data => data.json());
+}
+
+
+// Fetches Yelp data based on which city is selected on the map
 function getYelpData(city) {
   console.log('getyelpdata-called')
     const yelpRoot = "https://api.yelp.com/v3/businesses/search\n?location="
@@ -25,6 +30,13 @@ function getYelpData(city) {
     .then(data => data.json())
     .then(console.log('fetch-completed'))
     .catch(error => console.log(error));
+}
+
+//Event Listeners
+function startMap() {
+  $('section').on('click', '#showMap-btn', function (event){
+      showMapSection();
+  })
 }
 
 function getYelpHandler() {
@@ -42,52 +54,7 @@ function sortHandler() {
     })
 }
 
-function sortYelpByRating() {
-   yelpData.businesses.sort((a, b) => {
-    return b.rating - a.rating;
-  })
-}
-
-function addSortButton() {
-  $( ".sort-rating-btn" ).removeClass( "hidden" )
-}
-
-
-function renderYelpSection() {
-  console.log(yelpData, 'yelpData')
-  $('.yelp-list').html('');
-  // $('.results-page').prepend(`<button class='sort-rating-btn button'>Sort Restauraunts by Rating!</button><br>`)
-    yelpData.businesses.forEach(business => {
-        $('.yelp-list').append(`<li class='yelp-card result'>
-            <div class='yelp-heading'>
-            <h2 class="yelpRest-name">${business.name}</h2>
-            <p>Number of stars: ${business.rating}</p>
-            </div>
-            <div class='yelp-content'>
-            <p>Price: ${business.price}</p>
-            <p>Address: ${business.location.display_address}</p>
-            <p>Phone: ${business.display_phone}</p>
-            <p>Cuisine Type: ${business.categories[0].title}</p>
-            <a href="${business.url}" target="_blank">${business.name} website</a>
-            </div>
-            </li>`)
-            
-    })
-}
-
-function updateWeatherDom(data) {
-    console.log(data)
-    $(".city-name").html(data.city_name)
-    $(".snow-acc").html('Projected total snow for next 16 days: ' + getTotalSnowAcc(data) + ' in')
-    $(".hi").html('High: ' + getHiTemp(data) + ' F')
-    $(".low").html('Low: ' + getLowTemp(data) + ' F')
-    $(".todays-snow").html('Snow for next 24 hours: ' + getTodaysSnow(data) + ' in')
-    $(".twoDay-snow").html('Snow for next 48 hours: ' + getTwoDaySnow(data) + ' in')
-    $(".description").html('Todays weather: ' +getDescription(data))
-    getResortLink();
-    
-}
-
+//Creates a leaflet object to render the map. It also sets the view to Colorado's lat/long, adds img tiles, and adds other various properties to the map.
 var mymap = L.map('mapid').setView([39.2084, -106.9491], 7);
 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -98,111 +65,143 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     accessToken: 'pk.eyJ1Ijoia2ozc3RhY2tzIiwiYSI6ImNraTgxZGM5cTAxYzYyc29hNmJwdHg1cHMifQ.GtyrfOTWYSdrz6TP-tZVQA'
 }).addTo(mymap);
 
-
+//Adds 6 markers to the leaflet object. On click of a marker the weather data is fetched and then displayed on the dom. The yelp data is also fetched for that city and stored in the global yelpData Array.
   
-  L.marker([39.4817, -106.0384], { id: "Breckenridge" })
-    .addTo(mymap)
-    .bindPopup("<b>Breckenridge</b>", {autoClose: false})
-    .on("click", function(event) {
-        showWeather()
-        var id = event.target.options.id;
-        getData(id).then(function(data) {
-            updateWeatherDom(data)
-        })
-        getYelpData(id).then(function(data) {
-            yelpData = data;
-        })
-    })
-
-  L.marker([39.6403, -106.3742], { id: "Vail" })
-    .addTo(mymap)
-    .bindPopup("<b>Vail</b>", {autoClose: false})
-    // .openPopup()
-    .on("click", function(event) {
-    showWeather()
+L.marker([39.4817, -106.0384], { id: "Breckenridge" })
+  .addTo(mymap)
+  .bindPopup("<b>Breckenridge</b>", {autoClose: false})
+  .on("click", function(event) {
+    showWeather();
     var id = event.target.options.id;
-    getData(id).then(function(data) {
-      updateWeatherDom(data)
-    })
-    getYelpData(id).then(function(data) {
-        console.log(data, 'yelpData')
-        yelpData = data;
-    })
-})
-
-  L.marker([39.2084, -106.9491], { id: "Aspen" })
-    .addTo(mymap)
-    .bindPopup("<b>Aspen Snowmass</b>", {autoClose: false})
-    // .openPopup()
-    .on("click", function(event) {
-    showWeather()
-    var id = event.target.options.id;
-    getData(id).then(function(data) {
-      updateWeatherDom(data)
-    })
+    getWeatherData(id).then(function(data) {
+      updateWeatherDom(data);
+        })
     getYelpData(id).then(function(data) {
       yelpData = data;
-    })
-})
+        });
+});
+
+L.marker([39.6403, -106.3742], { id: "Vail" })
+    .addTo(mymap)
+    .bindPopup("<b>Vail</b>", {autoClose: false})
+    .on("click", function(event) {
+      showWeather();
+      var id = event.target.options.id;
+      getWeatherData(id).then(function(data) {
+        updateWeatherDom(data);
+          })
+      getYelpData(id).then(function(data) {
+        yelpData = data;
+          });
+});
+
+L.marker([39.2084, -106.9491], { id: "Aspen" })
+    .addTo(mymap)
+    .bindPopup("<b>Aspen Snowmass</b>", {autoClose: false})
+    .on("click", function(event) {
+      showWeather();
+      var id = event.target.options.id;
+      getWeatherData(id).then(function(data) {
+        updateWeatherDom(data);
+          })
+      getYelpData(id).then(function(data) {
+        yelpData = data;
+          });
+});
 
   L.marker([37.9375, -107.8123], { id: "Telluride" })
     .addTo(mymap)
     .bindPopup("<b>Telluride</b>")
     .on("click", function(event) {
-    showWeather()
-    var id = event.target.options.id;
-    getData(id).then(function(data) {
-      updateWeatherDom(data)
-    })
-    getYelpData(id).then(function(data) {
-      yelpData = data;
-      console.log(yelpData, 'tellurideYelpData')
-    })
-})
+      showWeather();
+      var id = event.target.options.id;
+      getWeatherData(id).then(function(data) {
+        updateWeatherDom(data);
+          })
+      getYelpData(id).then(function(data) {
+        yelpData = data;
+          });
+});
 
-  L.marker([40.4850, -106.8317], { id: "Steamboat Springs" })
+L.marker([40.4850, -106.8317], { id: "Steamboat Springs" })
     .addTo(mymap)
     .bindPopup("<b>Steamboat Springs</b>")
     .on("click", function(event) {
-    showWeather()
-    var id = event.target.options.id;
-    getData(id).then(function(data) {
-      updateWeatherDom(data)
-    })
-    getYelpData(id).then(function(data) {
-      yelpData = data;
-    })
-})
+      showWeather();
+      var id = event.target.options.id;
+      getWeatherData(id).then(function(data) {
+        updateWeatherDom(data);
+          })
+      getYelpData(id).then(function(data) {
+        yelpData = data;
+          });
+});
 
-  L.marker([39.8868, -105.7625], { id: "Fraser" })
+L.marker([39.8868, -105.7625], { id: "Fraser" })
     .addTo(mymap)
     .bindPopup("<b>Winter Park, Fraser</b>")
     .on("click", function(event) {
-    showWeather()
-    var id = event.target.options.id;
-    getData(id).then(function(data) {
-      updateWeatherDom(data)
-    })
-    getYelpData(id).then(function(data) {
-      yelpData = data;
-    })
-})
+      showWeather();
+      var id = event.target.options.id;
+      getWeatherData(id).then(function(data) {
+        updateWeatherDom(data);
+          })
+      getYelpData(id).then(function(data) {
+        yelpData = data;
+          });
+});
 
-    setInterval(function () {
+//work-around to fix the resizing of the leaflet map on page load after 1/10th of a second. 
+setInterval(function () {
         mymap.invalidateSize();
-     }, 100);
+}, 100);
 
-function showWeather() {
-    $( ".select" ).addClass( "hidden" )
-    $( ".weather-aside" ).removeClass( "hidden" )
+// Updates the yelp section with data from the yelp fetch call.
+function renderYelpSection() {
+  $('.yelp-list').html('');
+  yelpData.businesses.forEach(business => {
+    $('.yelp-list').append(`<li class='yelp-card result'>
+      <div class='yelp-heading'>
+      <h2 class="yelpRest-name">${business.name}</h2>
+      <p>Number of stars: ${business.rating}</p>
+      </div>
+      <div class='yelp-content'>
+      <p>Price: ${business.price}</p>
+      <p>Address: ${business.location.display_address}</p>
+      <p>Phone: ${business.display_phone}</p>
+      <p>Cuisine Type: ${business.categories[0].title}</p>
+      <a href="${business.url}" target="_blank">${business.name} website</a>
+      </div>
+      </li>`)       
+       });
+}
+  
+// Updates the weather section with data from the weather fetch call.
+function updateWeatherDom(data) {
+  $(".city-name").html(data.city_name);
+  $(".snow-acc").html('Projected total snow for next 16 days: ' + getTotalSnowAcc(data) + ' in');
+  $(".hi").html('High: ' + getHiTemp(data) + ' F');
+  $(".low").html('Low: ' + getLowTemp(data) + ' F');
+  $(".todays-snow").html('Snow for next 24 hours: ' + getTodaysSnow(data) + ' in');
+  $(".twoDay-snow").html('Snow for next 48 hours: ' + getTwoDaySnow(data) + ' in');
+  $(".description").html('Todays weather: ' +getDescription(data));
+  getResortLink();
 }
 
+// Mutates the Yelp array by sorting the restaurants in descending order according to their rating.
+function sortYelpByRating() {
+  yelpData.businesses.sort((a, b) => {
+   return b.rating - a.rating;
+ })
+}
+
+// Functions that return certain pieces of data pertaining to either Yelp or the weather.
 function getTotalSnowAcc(chosenCity) {
-    let totalSnow = chosenCity.data.reduce((acc, day) => {
-        acc += day.snow
- return acc
+   let totalSnow = chosenCity.data.reduce((acc, day) => {
+     acc += day.snow
+     return acc
     },0)
-   return Math.round(totalSnow * 0.0393701);
+    return Math.round(totalSnow * 0.0393701);
 }
 
 function getTodaysSnow(chosenCity) {
@@ -215,8 +214,8 @@ function getTwoDaySnow(chosenCity) {
 }
 
 function getHiTemp(chosenCity) {
-  let hiTemp = Math.round(chosenCity.data[0].max_temp * 9/5 + 32);
-  return hiTemp;
+    let hiTemp = Math.round(chosenCity.data[0].max_temp * 9/5 + 32);
+    return hiTemp;
 }
 
 function getLowTemp(chosenCity) {
@@ -249,37 +248,27 @@ function getResortLink() {
     }
 }
 
-function startMap() {
-    $('section').on('click', '#showMap-btn', function (event){
-        showMapSection();
-    })
-}
-
-function showResults() {
-    $('main').on('click', '#showResults-btn', function (event){
-        showResultSection();
-    })
+// Functions that hide and show elements on the page
+function showWeather() {
+  $( ".select" ).addClass( "hidden" )
+  $( ".weather-aside" ).removeClass( "hidden" )
 }
 
 function showMapSection() {
-  console.log('hittinginthere')
-    $( ".landing-page" ).addClass( "hidden" )
-    // $( ".results-page" ).addClass( "hidden" )
-    $( ".resort-map" ).removeClass( "hidden" )
+    $( ".landing-page" ).addClass( "hidden");
+    $( ".resort-map" ).removeClass( "hidden");
 }
 
-function showResultSection() {
-    $( ".landing-page" ).addClass( "hidden")
-    $( ".resort-map" ).addClass( "hidden")
-    $( ".results-page" ).removeClass( "hidden")
+function addSortButton() {
+  $( ".sort-rating-btn" ).removeClass( "hidden" )
 }
 
+// Functions to update the DOM
 function renderDom() {
-    startMap()
-    showResults()
-    getYelpHandler()
-    sortHandler()
+  startMap();
+  getYelpHandler();
+  sortHandler();
 }
 
-$(renderDom)
+$(renderDom);
 

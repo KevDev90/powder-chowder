@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,49 +15,48 @@
    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
    crossorigin=""></script>
 </head>
-
 <body>
   <header>
     <h1>Powder and Chowder</h1>
   </header>
   <main>
       <section class="landing-page" aria-label="Landing Page">
-        <h2 class='welcome'>Welcome to Powder and Chowder!</h2>
-        <div class='p-wrapper'>
+        <h2 class="welcome">Welcome to Powder and Chowder!</h2>
+        <div class="p-wrapper">
           <p>Your one stop Application for planning your next Colorado Mountain Adventure!</p>
           <p>This application takes in real time weather forecasts to help you plan your next ski or snowboarding adventure!</p>
           <p>After selecting a resort, a user can click the 'Show Restaurants' button and will then be given a list of restauraunts in that resorts area!</p>
           <p>This application was developed to interact with local resorts here in Colorado.</p>
         </div>
-          <button id='showMap-btn' class='button btn-red'>Click here to get started!</button>
+          <button id="showMap-btn" class="button btn-red">Click here to get started!</button>
       </section>
       <section class="resort-map hidden" aria-label="Main display page">
-        <h2 class='hidden'>Main display section</h2>
+        <h2 class="hidden">Main display section</h2>
         <div class="grid-container">
           <div id="mapid"></div>
           <div class="placeholder">
-            <b class='select'>Select a resort on the map to see weather data!</b>
-            <aside class='weather-aside hidden'>
-              <h2 class='weather-heading'>Weather Data</h2>
-              <h3 class='city-name'>City name here</h3>
-              <ul class='weather-data'>
+            <b class="select">Select a resort on the map to see weather data!</b>
+            <aside class="weather-aside hidden">
+              <h2 class="weather-heading">Weather Data</h2>
+              <h3 class="city-name">City name here</h3>
+              <ul class="weather-data">
                 <li><h4>Snow Report</h4></li>
-                <li class='todays-snow'></li>
-                <li class='twoDay-snow'></li>
-                <li class='snow-acc'></li>
+                <li class="todays-snow"></li>
+                <li class="twoDay-snow"></li>
+                <li class="snow-acc"></li>
                 <li><h4>Todays Data</h4></li>
-                <li class='hi'></li>
-                <li class='low'></li>
-                <li class='description'></li>
-                <li class='resort-link'></li>
+                <li class="hi"></li>
+                <li class="low"></li>
+                <li class="description"></li>
+                <li class="resort-link"></li>
               </ul>
-              <button class='showYelp-btn button'>Show Restauraunts for this city!</button>
+              <button class="showYelp-btn button">Show Restauraunts for this city!</button>
                </aside>
               </div>
         </div>
         <section class="results-page" aria-label="Yelp Results Section">
-          <h2 class='hidden'>Yelp Results Section</h2>
-          <button class='sort-rating-btn button hidden'>Sort Restauraunts by Rating!</button><br>
+          <h2 class="hidden">Yelp Results Section</h2>
+          <button class="sort-rating-btn button hidden">Sort Restauraunts by Rating!</button><br>
           <ul class="yelp-list" id="results">
             </ul>
         </section>
