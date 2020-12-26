@@ -11,8 +11,12 @@ This project is an app that allows users to select a particular colorado ski res
 GitHub Pages: https://kevdev90.github.io/powder-chowder/
 
 ### Composition Screenshots
+
+### Landing
 ![comp_landing](https://user-images.githubusercontent.com/49801538/103157468-5309ea00-4770-11eb-9386-5d24ab74b43c.png)
+### Desktop
 ![comp_desktop](https://user-images.githubusercontent.com/49801538/103157466-4eddcc80-4770-11eb-9a4e-5d5022b3855e.png)
+### Mobile
 ![comp_mobile](https://user-images.githubusercontent.com/49801538/103157464-484f5500-4770-11eb-830f-6df899e60e12.png)
 
 ### Contributors
