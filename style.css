@@ -175,6 +175,13 @@ header {
         margin-left: 10px;
     }
 
+    .disabled-btn {
+        background-color: #9F9FCA;
+        border: 2px solid #E5E5E5;
+        cursor: default;
+        color:  #E5E5E5;
+      }
+
 
     /* Tablet Screen */
 @media screen and (max-width: 768px) {
@@ -205,7 +212,23 @@ header {
         margin-left: 30px;
     }
 
+    .yelp-list {
+        padding-right: 90px;
+    }
+
     .yelp-list li {
         height: inherit;
+        width: inherit;
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 10px;
+    }
+
+    .sort-rating-btn {
+        margin-top: 100px;
+    }
+
+    .placeholder {
+        background-image: none;
     }
 }

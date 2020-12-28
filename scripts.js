@@ -16,20 +16,17 @@ function getWeatherData(city) {
   const root = 'https://api.weatherbit.io/v2.0/forecast/daily?city=';
   const key = ',CO&key=7b9c18c9fd2f453094f58a867fafa27c'
   const url = `${root}${city}${key}`;
-  return fetch(url).then(data => data.json());
+  return fetch(url).then(data => data.json()).catch(error => alert(error));
 }
 
 
 // Fetches Yelp data based on which city is selected on the map
 function getYelpData(city) {
-  console.log('getyelpdata-called')
     const yelpRoot = "https://api.yelp.com/v3/businesses/search\n?location="
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
     const yelpUrl = `${proxyurl}${yelpRoot}${city} + ',co'`
     return fetch(yelpUrl, requestOptions)
-    .then(data => data.json())
-    .then(console.log('fetch-completed'))
-    .catch(error => console.log(error));
+    .then(data => data.json()).catch(error => alert(error));
 }
 
 //Event Listeners
@@ -43,6 +40,7 @@ function getYelpHandler() {
     $('main').on('click', '.showYelp-btn', function (event){
         addSortButton();
         renderYelpSection();
+        enableSortButton();
     })
 }
 
@@ -50,7 +48,7 @@ function sortHandler() {
     $('main').on('click', '.sort-rating-btn', function (event){
         sortYelpByRating()
         renderYelpSection()
-
+        disableSortButton()
     })
 }
 
@@ -246,6 +244,16 @@ function getResortLink() {
     if($(".city-name").text() === 'Fraser') {
         $(".resort-link").html('<a href="https://www.winterparkresort.com/" target="_blank">Winter Park Website</a>')
     }
+}
+
+function disableSortButton() {
+  $('.sort-rating-btn').disabled = true;
+  $('.sort-rating-btn').addClass("disabled-btn")
+}
+
+function enableSortButton() {
+  $('.sort-rating-btn').disabled = false;
+  $('.sort-rating-btn').removeClass("disabled-btn")
 }
 
 // Functions that hide and show elements on the page
